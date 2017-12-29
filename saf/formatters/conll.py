@@ -43,7 +43,7 @@ class CoNLLFormatter(object):
         elif(not has_term and not has_id):
             return header + self.dumps_wo_term_wo_id(document)
         else:
-            raise
+            pass
 
 
     def dumps_w_term_w_id(self, document):

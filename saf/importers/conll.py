@@ -13,8 +13,7 @@ class CoNLLImporter(Importer):
     def __init__(self, field_list):
         """Formatter constructor
 
-        Constructs a formatter object that tokenizes a plain text document into sentences using
-        sentence_tokenizer and words in a sentence using word_tokenizer.
+        Constructs an Importer object that converts a CoNLL document into an Annotable document.
 
         :param field_list (list of str): list of keys identifying the fields in the CoNLL file.
             Default keys can be found in the constants.annotation module.
