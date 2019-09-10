@@ -1,6 +1,6 @@
 __author__ = 'danilo@jaist.ac.jp'
 
-from annotable import Annotable
+from .annotable import Annotable
 
 
 class Document(Annotable):
@@ -18,7 +18,7 @@ class Document(Annotable):
     """
     def __init__(self):
         self.meta = dict()
-        self.title = u""
+        self.title = ""
         self.sentences = []
         self.paragraphs = []
         self.annotations = dict()

@@ -1,6 +1,6 @@
 __author__ = 'danilo@jaist.ac.jp'
 
-from annotable import Annotable
+from .annotable import Annotable
 
 
 class Sentence(Annotable):

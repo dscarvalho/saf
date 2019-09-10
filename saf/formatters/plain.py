@@ -8,7 +8,7 @@ class PlainFormatter(object):
     @classmethod
     def dumps(cls, document):
         if(len(document.sentences) == 0):
-            return u"";
+            return "";
 
         output = []
 
@@ -18,6 +18,6 @@ class PlainFormatter(object):
             else:
                 output.append(token.surface for token in sentence.tokens)
 
-        return u"\n".join((re.sub(RGX_PUNCT, r"\1", u" ".join(sent)) for sent in output))
+        return "\n".join((re.sub(RGX_PUNCT, r"\1", " ".join(sent)) for sent in output))
 
 

@@ -4,8 +4,7 @@ from abc import ABCMeta
 from abc import abstractmethod
 
 
-class Annotator(object):
-    __metaclass__ = ABCMeta
+class Annotator(object, metaclass=ABCMeta):
     def __init__(self):
         """Formatter constructor
 

@@ -1,13 +1,14 @@
 __author__ = 'Danilo S. Carvalho <danilo@jaist.ac.jp>, Vu Duc Tran <vu.tran@jaist.ac.jp>'
 
-from itertools import izip
+
 from saf.data_model.document import Document
 from saf.data_model.sentence import Sentence
 from saf.data_model.token import Token
 from saf.data_model.term import Term
-from importer import Importer
+from .importer import Importer
 from saf.importers.tokenizers.conll import conll_sentence_tokenize, conll_word_tokenize
 from saf.constants import annotation
+
 
 class CoNLLImporter(Importer):
     def __init__(self, field_list):
@@ -38,13 +39,13 @@ class CoNLLImporter(Importer):
             last_term_id = (-1,)
 
             for token_raw in tokens_raw:
-                if(token_raw.startswith(u"#")):
+                if(token_raw.startswith("#")):
                     continue
 
                 fields = token_raw.split()
                 id_raw = fields[0]
-                id_raw_range = map(float, id_raw.split('-'))
-                annotations = dict(izip(self.field_list, fields[2:]))
+                id_raw_range = list(map(float, id_raw.split('-')))
+                annotations = dict(zip(self.field_list, fields[2:]))
 
                 if(len(id_raw_range) == 1):
 

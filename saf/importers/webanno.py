@@ -1,11 +1,11 @@
 __author__ = 'Danilo S. Carvalho <danilo@jaist.ac.jp>, Vu Duc Tran <vu.tran@jaist.ac.jp>'
 
 import re
-from itertools import izip
+
 from saf.data_model.document import Document
 from saf.data_model.sentence import Sentence
 from saf.data_model.token import Token
-from importer import Importer
+from .importer import Importer
 from saf.importers.tokenizers.conll import conll_sentence_tokenize, conll_word_tokenize
 
 
@@ -38,7 +38,7 @@ class WebAnnoImporter(Importer):
             last_term_id = (-1,)
 
             for token_raw in tokens_raw:
-                if(token_raw.startswith(u"#")):
+                if(token_raw.startswith("#")):
                     continue
 
                 token = Token()
@@ -47,12 +47,17 @@ class WebAnnoImporter(Importer):
                 sent_tok_idx = fields[0]
                 char_span = fields[1]
                 token.surface = fields[2]
-                annotations = dict(izip(self.field_list, fields[2:]))
+                annotations = dict(zip(self.field_list, fields[3:]))
 
                 for field in self.field_list:
                     annotations[field] = annotations[field].split("|")
-                    for i in xrange(len(annotations[field])):
-                        annotations[field][i] = re.match(r"(?P<name>.+)\[\d+\]$", annotations[field][i]).group("name").replace("\\", "")
+                    for i in range(len(annotations[field])):
+                        mo = re.match(r"(?P<name>.+)\[\d+\]$", annotations[field][i])
+
+                        if (mo):
+                            annotations[field][i] = mo.group("name").replace("\\", "")
+                        else:
+                            annotations[field][i] = annotations[field][i].replace("\\", "")
 
                 token.annotations = annotations
                 sentence.tokens.append(token)

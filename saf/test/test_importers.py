@@ -8,7 +8,7 @@ from saf.importers.conll import CoNLLImporter
 from saf.constants import annotation
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-plain_doc = u"""
+plain_doc = """
 But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
  No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.
  Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some greatpleasure.
@@ -20,7 +20,7 @@ On the other hand, we denounce with righteous indignation and dislike men who ar
  The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
 """
 
-conll_doc = u"""
+conll_doc = """
 # sent_id = dev-s3
 # text = A Nina é a chance dele ser feliz.
 1   A   _   DET DET _   2   det _   _
@@ -55,7 +55,7 @@ class TestPlainImporter(unittest.TestCase):
         doc = plain_importer.import_document(plain_doc)
 
         self.assertEqual(len(doc.sentences), 10)
-        self.assertEqual(doc.sentences[0].tokens[-1].surface, u".")
+        self.assertEqual(doc.sentences[0].tokens[-1].surface, ".")
 
 
 class TestCoNLLImporter(unittest.TestCase):

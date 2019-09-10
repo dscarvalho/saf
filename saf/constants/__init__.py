@@ -1,3 +1,3 @@
 __author__ = 'danilo@jaist.ac.jp'
 
-from annotation import *
+from .annotation import *

@@ -3,7 +3,7 @@ __author__ = 'Danilo S. Carvalho <danilo@jaist.ac.jp>, Vu Duc Tran <vu.tran@jais
 from saf.data_model.document import Document
 from saf.data_model.sentence import Sentence
 from saf.data_model.token import Token
-from importer import Importer
+from .importer import Importer
 
 
 class PlainImporter(Importer):

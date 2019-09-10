@@ -26,13 +26,13 @@ class CoNLLFormatter(object):
 
     def dumps(self, document):
         if(len(document.sentences) == 0):
-            return u"";
+            return ""
 
         has_term = len(document.sentences[0].terms) > 0
 
         has_id = annotation.ID in document.sentences[0].tokens[0].annotations
 
-        header = u"# SURFACE\t" + u"\t".join(self.field_list) + u"\n"
+        header = "# SURFACE\t" + "\t".join(self.field_list) + "\n"
 
         if(has_term and has_id):
             return header + self.dumps_w_term_w_id(document)
@@ -53,15 +53,15 @@ class CoNLLFormatter(object):
                 if(len(term.tokens) > 1):
                     output.append(
                         [term.annotations[annotation.ID], term.surface]
-                        + [term.annotations[field] if (field in term.annotations) else u"_" for field in self.field_list])
+                        + [term.annotations[field] if (field in term.annotations) else "_" for field in self.field_list])
 
                 for token in term.tokens:
                     output.append([token.annotations[annotation.ID], token.surface]
-                                  + [token.annotations[field] if (field in token.annotations) else u"_" for field in self.field_list])
+                                  + [token.annotations[field] if (field in token.annotations) else "_" for field in self.field_list])
 
             output.append([])
 
-        return u"\n".join((u"\t".join(line) for line in output))
+        return "\n".join(("\t".join(line) for line in output))
 
     def dumps_w_term_wo_id(self, document):
         output = []
@@ -71,28 +71,28 @@ class CoNLLFormatter(object):
             for term in sentence.terms:
                 if(len(term.tokens) > 1):
                     output.append(
-                        [u"%d-%d" % (last_token_id+1, last_token_id+len(term.tokens)), term.surface]
-                        + [term.annotations[field] if (field in term.annotations) else u"_" for field in self.field_list])
+                        ["%d-%d" % (last_token_id+1, last_token_id+len(term.tokens)), term.surface]
+                        + [term.annotations[field] if (field in term.annotations) else "_" for field in self.field_list])
 
                 for token in term.tokens:
 
-                        output.append([unicode(last_token_id + 1), token.surface]
-                                      + [token.annotations[field] if (field in token.annotations) else u"_" for field in self.field_list])
+                        output.append([str(last_token_id + 1), token.surface]
+                                      + [token.annotations[field] if (field in token.annotations) else "_" for field in self.field_list])
                         last_token_id += 1
 
             output.append([])
 
-        return u"\n".join((u"\t".join(line) for line in output))
+        return "\n".join(("\t".join(line) for line in output))
 
     def dumps_wo_term_w_id(self, document):
         output = []
         for sentence in document.sentences:
             for token in sentence.tokens:
-                output.append([token.annotations[annotation.ID], token.surface] + [token.annotations[field] if (field in token.annotations) else u"_" for field in self.field_list])
+                output.append([token.annotations[annotation.ID], token.surface] + [token.annotations[field] if (field in token.annotations) else "_" for field in self.field_list])
 
             output.append([])
 
-        return u"\n".join((u"\t".join(line) for line in output))
+        return "\n".join(("\t".join(line) for line in output))
 
     def dumps_wo_term_wo_id(self, document):
         output = []
@@ -100,10 +100,10 @@ class CoNLLFormatter(object):
         for sentence in document.sentences:
             last_token_id = 0
             for token in sentence.tokens:
-                output.append([unicode(last_token_id+1),token.surface] + [token.annotations[field] if (field in token.annotations) else u"_" for field in self.field_list])
+                output.append([str(last_token_id+1),token.surface] + [token.annotations[field] if (field in token.annotations) else "_" for field in self.field_list])
                 last_token_id += 1
             output.append([])
 
-        return u"\n".join((u"\t".join(line) for line in output))
+        return "\n".join(("\t".join(line) for line in output))
 
 
