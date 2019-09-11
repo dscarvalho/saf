@@ -1,6 +1,9 @@
 __author__ = 'Danilo S. Carvalho <danilo@jaist.ac.jp>, Vu Duc Tran <vu.tran@jaist.ac.jp>'
 
+from typing import List, Dict
+
 from .annotable import Annotable
+from .token import Token
 
 
 class Term(Annotable):
@@ -14,6 +17,6 @@ class Term(Annotable):
     """
 
     def __init__(self):
-        self.surface = ""
-        self.tokens = []
-        self.annotations = dict()
+        self.surface: str = ""
+        self.tokens: List[Token] = []
+        self.annotations: Dict = dict()

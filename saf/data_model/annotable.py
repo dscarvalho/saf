@@ -1,5 +1,7 @@
 __author__ = "Danilo S. Carvalho <danilo@jaist.ac.jp>"
 
+from typing import Dict
+
 
 class Annotable(object):
     """A corpus annotable object.
@@ -10,7 +12,7 @@ class Annotable(object):
 
     """
     def __init__(self):
-        self.annotations = dict()
+        self.annotations: Dict = dict()
 
     def typename(self):
         self.__class__.typename()

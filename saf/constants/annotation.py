@@ -24,12 +24,13 @@ Declared keys are:
     VEC      Vector representation.
     W2V      word2vec embedding. See [https://code.google.com/archive/p/word2vec/]
     GLOVE    Global Vectors embedding. See [https://nlp.stanford.edu/projects/glove/]
-    TDV      Term Definition Vector representation. See [https://github.com/dscarvalho/tdv]
+    TDV      Term Definition Vector representation. See [https://github.com/dscarvalho/tdv]"
+    LANG     Language information.
 
 """
 
 # public symbols
-__all__ = ["ID", "LEMMA", "POS", "DEP", "UPOS", "UDEP", "XPOS", "FEATS", "HEAD", "DEPREL", "CHUNK", "CSTRUCT", "TOPIC", "INCL", "MORPHO", "VEC", "W2V", "GLOVE", "TDV"]
+__all__ = ["ID", "LEMMA", "POS", "DEP", "UPOS", "UDEP", "XPOS", "FEATS", "HEAD", "DEPREL", "CHUNK", "CSTRUCT", "TOPIC", "INCL", "MORPHO", "VEC", "W2V", "GLOVE", "TDV", "LANG"]
 
 # constants
 ID = "ID"
@@ -51,3 +52,4 @@ VEC = "VEC"
 W2V = "W2V"
 GLOVE = "GLOVE"
 TDV = "TDV"
+LANG = "LANG"

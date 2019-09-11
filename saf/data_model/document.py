@@ -1,6 +1,9 @@
 __author__ = 'danilo@jaist.ac.jp'
 
+from typing import List, Tuple, Dict
+
 from .annotable import Annotable
+from .sentence import Sentence
 
 
 class Document(Annotable):
@@ -18,7 +21,7 @@ class Document(Annotable):
     """
     def __init__(self):
         self.meta = dict()
-        self.title = ""
-        self.sentences = []
-        self.paragraphs = []
-        self.annotations = dict()
+        self.title: str = ""
+        self.sentences: List[Sentence] = []
+        self.paragraphs: List[Tuple[int, int]] = []
+        self.annotations: Dict = dict()
