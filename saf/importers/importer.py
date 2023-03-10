@@ -4,7 +4,7 @@ from abc import ABCMeta
 from abc import abstractmethod
 
 
-class Importer(object, metaclass=ABCMeta):
+class Importer(metaclass=ABCMeta):
     def __init__(self, sentence_tokenizer, word_tokenizer):
         """Formatter constructor
 

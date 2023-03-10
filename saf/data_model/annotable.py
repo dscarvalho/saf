@@ -3,7 +3,7 @@ __author__ = "Danilo S. Carvalho <danilo@jaist.ac.jp>"
 from typing import Dict
 
 
-class Annotable(object):
+class Annotable:
     """A corpus annotable object.
 
     Attributes:

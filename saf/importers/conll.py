@@ -5,14 +5,14 @@ from saf.data_model.document import Document
 from saf.data_model.sentence import Sentence
 from saf.data_model.token import Token
 from saf.data_model.term import Term
-from .importer import Importer
-from saf.importers.tokenizers.conll import conll_sentence_tokenize, conll_word_tokenize
 from saf.constants import annotation
+from saf.importers.tokenizers.conll import conll_sentence_tokenize, conll_word_tokenize
+from .importer import Importer
 
 
 class CoNLLImporter(Importer):
     def __init__(self, field_list):
-        """Formatter constructor
+        """Importer constructor
 
         Constructs an Importer object that converts a CoNLL document into an Annotable document.
 
@@ -27,9 +27,7 @@ class CoNLLImporter(Importer):
         self.field_list = field_list
 
     def import_document(self, document):
-
         doc = Document()
-
         sentences_raw = self.sent_tokenizer(document)
 
         for sent_raw in sentences_raw:
@@ -83,10 +81,6 @@ class CoNLLImporter(Importer):
 
                 else:
                     raise ValueError("FUUUU")
-
-
-
-
 
             if(len(sentence.tokens) == 0):
                 continue
