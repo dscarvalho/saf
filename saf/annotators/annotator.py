@@ -1,10 +1,10 @@
 __author__ = "Danilo S. Carvalho <danilo@jaist.ac.jp>"
 
-from abc import ABCMeta
+from abc import ABC
 from abc import abstractmethod
 
 
-class Annotator(object, metaclass=ABCMeta):
+class Annotator(ABC):
     def __init__(self):
         """Formatter constructor
 
@@ -19,7 +19,9 @@ class Annotator(object, metaclass=ABCMeta):
     def annotate(self, annotable):
         """Annotates a document
 
-        :param annotable (Annotable): object to be annotated.
+        Args:
+            annotable (Annotable): object to be annotated.
+
         :return: Annotated Annotable (Document, Sentence, Term, Token, ...) object.
         """
 

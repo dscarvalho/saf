@@ -1,10 +1,10 @@
 __author__ = 'Danilo S. Carvalho <danilo@jaist.ac.jp>, Vu Duc Tran <vu.tran@jaist.ac.jp>'
 
-from abc import ABCMeta
+from abc import ABC
 from abc import abstractmethod
 
 
-class Importer(metaclass=ABCMeta):
+class Importer(ABC):
     def __init__(self, sentence_tokenizer, word_tokenizer):
         """Formatter constructor
 
@@ -12,10 +12,10 @@ class Importer(metaclass=ABCMeta):
         sentence_tokenizer and words in a sentence using word_tokenizer.
 
         :param sentence_tokenizer: tokenizer to separate sentences in a document.
-            Should be a callable object tokenizer(txt: unicode) -> list[unicode]
+            Should be a callable object tokenizer(txt: str) -> List[str]
             Example: NLTK sent_tokenize
         :param word_tokenizer: tokenizer to separate words in a sentence.
-            Should be a callable object tokenizer(txt: unicode) -> list[unicode]
+            Should be a callable object tokenizer(txt: str) -> List[str]
         :return: new Formatter instance.
         """
 
@@ -27,7 +27,9 @@ class Importer(metaclass=ABCMeta):
     def import_document(self, document):
         """Imports a plain text document
 
-        :param document_text (unicode): plain text to be imported as a document.
+        Args:
+            document (str): plain text to be imported as a document.
+
         :return: Document object
         """
         raise NotImplementedError()
