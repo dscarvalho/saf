@@ -49,7 +49,7 @@ class MorphoDBImporter(Importer):
                     token.surface = morpheme
                     sentence.tokens.append(token)
             else:
-                for char in list(entry):
+                for char in list(" ".join(document[entry]["morphemes"]["seq"])):
                     token = Token()
                     token.surface = char
                     sentence.tokens.append(token)

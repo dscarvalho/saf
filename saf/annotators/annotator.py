@@ -2,6 +2,8 @@ __author__ = "Danilo S. Carvalho <danilo@jaist.ac.jp>"
 
 from abc import ABC
 from abc import abstractmethod
+from typing import Iterable
+from saf import Annotable
 
 
 class Annotator(ABC):
@@ -16,7 +18,7 @@ class Annotator(ABC):
 
 
     @abstractmethod
-    def annotate(self, annotable):
+    def annotate(self, items: Iterable[Annotable]):
         """Annotates a document
 
         Args:
