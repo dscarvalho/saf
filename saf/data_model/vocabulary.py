@@ -44,6 +44,7 @@ class Vocabulary:
                 self.freqs: Counter[str] = Counter([label for label in labels])
 
             self._vocab: Dict[str, int] = {symbol: i for i, symbol in enumerate(sorted(self.freqs.keys()))}
+            self._rev_vocab: Dict[int, str] = {i: symbol for symbol, i in self._vocab.items()}
 
             if (maxlen):
                 excl = set(self.freqs.keys()) - set([symbol for symbol, freq in self.freqs.most_common(maxlen)])
@@ -63,13 +64,19 @@ class Vocabulary:
 
     def del_symbols(self, symbols: List[str]):
         for symbol in symbols:
+            idx = self.get_index(symbol)
             del self._vocab[symbol]
             del self.freqs[symbol]
+            del self._rev_vocab[idx]
 
         self._vocab = {s: i for i, s in enumerate(self._vocab.keys())}
+        self._rev_vocab = {i: symbol for symbol, i in self._vocab.items()}
 
     def get_index(self, symbol: str) -> int:
         return self._vocab[symbol]
+
+    def get_symbol(self, index: int) -> str:
+        return self._rev_vocab[index]
 
     def to_indices(self, data: Iterable[Annotable], default: int = -1, padding: int = 0,
                    pad_symbol: str = None, start_symbol: str = None, end_symbol: str = None) -> Union[List[List[int]], List[List[List[int]]]]:
