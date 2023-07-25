@@ -27,24 +27,22 @@ class Vocabulary:
             for annotable in data:
                 if (hasattr(annotable, "sentences")):
                     for sent in annotable.sentences:
-                        tokens.extend([tok.lower() if lowercase else tok for tok in sent.tokens])
+                        tokens.extend(sent.tokens)
                         if (source in sent.annotations):
-                            label = sent.annotations[source].lower() if lowercase else sent.annotations[source]
-                            labels.append(label)
+                            labels.append(sent.annotations[source])
                 elif (hasattr(annotable, "tokens")):
                     if (source in annotable.annotations):
-                        label = annotable.annotations[source].lower() if lowercase else annotable.annotations[source]
-                        labels.append(label)
-                    tokens.extend([tok.lower() if lowercase else tok for tok in annotable.tokens])
+                        labels.append(annotable.annotations[source])
+                    tokens.extend(annotable.tokens)
 
             for tok in tokens:
                 if (source in tok.annotations):
-                    labels.append(tok.annotations[source].lower() if lowercase else tok.annotations[source])
+                    labels.append(tok.annotations[source])
 
             if (source == "_token"):
-                self.freqs: Counter[str] = Counter([tok.surface for tok in tokens])
+                self.freqs: Counter[str] = Counter([tok.surface.lower() if lowercase else tok.surface for tok in tokens])
             else:
-                self.freqs: Counter[str] = Counter([label for label in labels])
+                self.freqs: Counter[str] = Counter([label.lower() if lowercase else label for label in labels])
 
             self._vocab: Dict[str, int] = {symbol: i for i, symbol in enumerate(sorted(self.freqs.keys()))}
             self._rev_vocab: Dict[int, str] = {i: symbol for symbol, i in self._vocab.items()}
