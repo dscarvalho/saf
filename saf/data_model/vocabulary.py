@@ -18,25 +18,28 @@ class Vocabulary:
                           Only hashable annotations are supported.
             maxlen (int): maximum size of the vocabulary. If exceeded, the most frequent symbols are selected.
         """
-    def __init__(self, data: Iterable[Annotable] = None, source: str = "_token", maxlen: int = None):
+    def __init__(self, data: Iterable[Annotable] = None, source: str = "_token", maxlen: int = None, lowercase: bool = True):
         self.source = source
+        self.lowercase = lowercase
         if (data):
             tokens = list()
             labels = list()
             for annotable in data:
                 if (hasattr(annotable, "sentences")):
                     for sent in annotable.sentences:
-                        tokens.extend(sent.tokens)
+                        tokens.extend([tok.lower() if lowercase else tok for tok in sent.tokens])
                         if (source in sent.annotations):
-                            labels.append(sent.annotations[source])
+                            label = sent.annotations[source].lower() if lowercase else sent.annotations[source]
+                            labels.append(label)
                 elif (hasattr(annotable, "tokens")):
                     if (source in annotable.annotations):
-                        labels.append(annotable.annotations[source])
-                    tokens.extend(annotable.tokens)
+                        label = annotable.annotations[source].lower() if lowercase else annotable.annotations[source]
+                        labels.append(label)
+                    tokens.extend([tok.lower() if lowercase else tok for tok in annotable.tokens])
 
             for tok in tokens:
                 if (source in tok.annotations):
-                    labels.append(tok.annotations[source])
+                    labels.append(tok.annotations[source].lower() if lowercase else tok.annotations[source])
 
             if (source == "_token"):
                 self.freqs: Counter[str] = Counter([tok.surface for tok in tokens])
@@ -100,12 +103,17 @@ class Vocabulary:
                 indices.append(list())
                 for sent in annotable.sentences:
                     if (self.source in sent.annotations):
-                        indices[-1].append(self._vocab.get(sent.annotations[self.source], default))
+                        annot = sent.annotations[self.source].lower() if self.lowercase else sent.annotations[self.source]
+                        indices[-1].append(self._vocab.get(annot, default))
                     else:
                         if (self.source == "_token"):
-                            indices[-1].append([self._vocab.get(tok.surface, default) for tok in sent.tokens])
+                            indices[-1].append([self._vocab.get(tok.surface.lower() if self.lowercase else tok.surface, default)
+                                                for tok in sent.tokens])
                         else:
-                            indices[-1].append([self._vocab.get(tok.annotations[self.source], default) for tok in sent.tokens])
+                            indices[-1].append([self._vocab.get(tok.annotations[self.source].lower()
+                                                                if self.lowercase
+                                                                else tok.annotations[self.source], default)
+                                                for tok in sent.tokens])
 
                         if (start_symbol is not None):
                             indices[-1][-1].insert(0, self._vocab.get(start_symbol, default))
@@ -118,9 +126,13 @@ class Vocabulary:
                     indices.append(self._vocab.get(annotable.annotations[self.source], default))
                 else:
                     if (self.source == "_token"):
-                        indices.append([self._vocab.get(tok.surface, default) for tok in annotable.tokens])
+                        indices.append([self._vocab.get(tok.surface.lower() if self.lowercase else tok.surface, default)
+                                        for tok in annotable.tokens])
                     else:
-                        indices.append([self._vocab.get(tok.annotations[self.source], default) for tok in annotable.tokens])
+                        indices.append([self._vocab.get(tok.annotations[self.source].lower()
+                                                        if self.lowercase
+                                                        else tok.annotations[self.source], default)
+                                        for tok in annotable.tokens])
 
                     if (start_symbol is not None):
                         indices[-1].insert(0, self._vocab.get(start_symbol, default))
