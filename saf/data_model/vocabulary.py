@@ -62,6 +62,7 @@ class Vocabulary:
         for symbol in symbols:
             if (symbol not in self._vocab):
                 self._vocab[symbol] = len(self._vocab)
+        self._rev_vocab = {i: symbol for symbol, i in self._vocab.items()}
 
     def del_symbols(self, symbols: List[str]):
         for symbol in symbols:
