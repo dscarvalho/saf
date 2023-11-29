@@ -15,5 +15,5 @@ class Token(Annotable):
     """
 
     def __init__(self):
+        super(Token, self).__init__()
         self.surface: str = ""
-        self.annotations: Dict = dict()

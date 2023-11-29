@@ -17,6 +17,6 @@ class Term(Annotable):
     """
 
     def __init__(self):
+        super(Term, self).__init__()
         self.surface: str = ""
         self.tokens: List[Token] = []
-        self.annotations: Dict = dict()

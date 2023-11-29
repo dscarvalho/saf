@@ -18,6 +18,18 @@ class Sentence(Annotable):
     """
 
     def __init__(self):
+        super(Sentence, self).__init__()
         self.tokens: List[Token] = []
         self.terms: List[Term] = []
-        self.annotations: Dict = dict()
+        self._surface: str = None
+
+    @property
+    def surface(self) -> str:
+        if (not self._surface):
+            raise NotImplementedError
+
+        return self._surface
+
+    @surface.setter
+    def surface(self, value):
+        self._surface = value

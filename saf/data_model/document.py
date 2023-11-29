@@ -20,8 +20,8 @@ class Document(Annotable):
 
     """
     def __init__(self):
+        super(Document, self).__init__()
         self.meta = dict()
         self.title: str = ""
         self.sentences: List[Sentence] = []
         self.paragraphs: List[Tuple[int, int]] = []
-        self.annotations: Dict = dict()
