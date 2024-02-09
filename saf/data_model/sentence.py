@@ -2,13 +2,13 @@ __author__ = 'danilo@jaist.ac.jp'
 
 from typing import List, Dict
 
-from .annotable import Annotable
+from .sequence import Sequence
 from .term import Term
 from .token import Token
 
 
-class Sentence(Annotable):
-    """Description of a sentence.
+class Sentence(Sequence):
+    """Description of a sentence: sequence of language tokens.
 
     Attributes:
     tokens (list of Token): Sequence of tokens composing the sentence, in reading order.
@@ -19,13 +19,12 @@ class Sentence(Annotable):
 
     def __init__(self):
         super(Sentence, self).__init__()
-        self.tokens: List[Token] = []
         self.terms: List[Term] = []
         self._surface: str = None
 
     @property
     def surface(self) -> str:
-        if (not self._surface):
+        if (self._surface is None):
             raise NotImplementedError
 
         return self._surface
