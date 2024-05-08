@@ -6,7 +6,7 @@ from saf.data_model.token import Token
 from .importer import Importer
 
 
-class PlainImporter(Importer):
+class PlainTextImporter(Importer):
     def import_document(self, document):
         doc = Document()
 
@@ -22,6 +22,7 @@ class PlainImporter(Importer):
                 token.surface = token_raw
                 sentence.tokens.append(token)
 
+            sentence._surface = " ".join([tok.surface for tok in sentence.tokens])
             doc.sentences.append(sentence)
 
         return doc

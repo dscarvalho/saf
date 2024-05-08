@@ -10,15 +10,18 @@ from .importer import Importer
 class MorphoDBImporter(Importer):
     DECOMP_PASS_LIMIT = 4
     def __init__(self):
-        """Importer constructor
-
-        Constructs an Importer object that converts a MorphoDB document into an Annotable document.
-
-        :return: new Formatter instance.
-        """
+        """Importer class for converting a MorphoDB document into an Annotable document."""
         super(MorphoDBImporter, self).__init__(None, None)
 
     def import_document(self, document: dict, chars: bool = False) -> Document:
+        """Imports a MorphoDB document
+
+        Args:
+            document (dict): MorphoDB document to be imported as a SAF document.
+
+        Returns:
+            Document: The imported document
+        """
         for entry in document:
             total_decomp = False
             decomp = None

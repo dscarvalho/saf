@@ -10,23 +10,27 @@ from saf.importers.tokenizers.conll import conll_sentence_tokenize, conll_word_t
 
 
 class WebAnnoImporter(Importer):
-    def __init__(self, field_list):
-        """Importer constructor
+    """Importer class for converting a WebAnno TSV3 document into an Annotable document.
 
-        Constructs an Importer object that converts a WebAnno TSV3 document into an Annotable document.
-
-        :param field_list (list of str): list of keys identifying the fields in the WebAnno TSV3 file.
+    Args:
+        field_list (list of str): list of keys identifying the fields in the WebAnno TSV3 file.
             Default keys can be found in the constants.annotation module.
             Example: ["POS", "DEP", ...]
-        :return: new Formatter instance.
-        """
-
+    """
+    def __init__(self, field_list):
         self.sent_tokenizer = conll_sentence_tokenize
         self.word_tokenizer = conll_word_tokenize
         self.field_list = field_list
 
-    def import_document(self, document):
+    def import_document(self, document) -> Document:
+        """Imports a WebAnno TSV3 document
 
+        Args:
+            document (dict): WebAnno TSV3 document to be imported as a SAF document.
+
+        Returns:
+            Document: The imported document
+        """
         doc = Document()
 
         sentences_raw = self.sent_tokenizer(document)
@@ -65,6 +69,7 @@ class WebAnnoImporter(Importer):
             if(len(sentence.tokens) == 0):
                 continue
 
+            sentence._surface = " ".join([tok.surface for tok in sentence.tokens])
             doc.sentences.append(sentence)
 
         return doc

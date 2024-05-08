@@ -3,28 +3,22 @@ __author__ = 'Danilo S. Carvalho <danilo@jaist.ac.jp>, Vu Duc Tran <vu.tran@jais
 from saf.constants import annotation
 
 class CoNLLFormatter(object):
+    """Provides a facility for exporting documents to CoNLL format.
+
+    Args:
+        field_list (list of str): list of keys identifying the fields to be exported in the CoNLL file.
+            Default keys can be found in the constants.annotation module.
+            Example: ["POS", "DEP", ...]
+
+    """
     def __init__(self, field_list):
         self.field_list = field_list
 
-    # def dumps(self, document):
-    #     output = []
-    #     for sentence in document.sentences:
-    #         for token in sentence.tokens:
-    #             output.append([token.surface] + [token.annotations[field] if (field in token.annotations) else u"-" for field in self.field_list])
-    #         output.append([])
-    #
-    #     return u"\n".join((u"\t".join(line) for line in output))
-
-    # def dump(self, document, file):
-    #     for sentence in document.sentences:
-    #         for token in sentence.tokens:
-    #             file.write(u"\t".join([token.surface] + [token.annotations[field] if (field in token.annotations) else u"-" for field in self.field_list]))
-    #             file.write(u"\n")
-    #
-    #         file.write(u"\n")
-
-
-    def dumps(self, document):
+    def dumps(self, document) -> str:
+        """Produces a CoNLL string for the input document
+        Args:
+            document (Document): The document to be exported.
+        """
         if(len(document.sentences) == 0):
             return ""
 

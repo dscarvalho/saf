@@ -8,7 +8,7 @@ from saf import Annotable
 
 class Annotator(ABC):
     def __init__(self):
-        """Formatter constructor
+        """Annotator constructor
 
         Constructs an annotator object that includes or modify annotations for objects in the data model.
 
@@ -19,12 +19,11 @@ class Annotator(ABC):
 
     @abstractmethod
     def annotate(self, items: Iterable[Annotable]):
-        """Annotates a document
+        """Annotates all items in the input iterable in place
 
         Args:
-            annotable (Annotable): object to be annotated.
+            items (Iterable[Annotable]): Collection of objects to be annotated.
 
-        :return: Annotated Annotable (Document, Sentence, Term, Token, ...) object.
         """
 
         raise NotImplementedError()

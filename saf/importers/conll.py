@@ -11,19 +11,15 @@ from .importer import Importer
 
 
 class CoNLLImporter(Importer):
-    def __init__(self, field_list):
-        """Importer constructor
+    """Importer class for converting a CoNLL document into an Annotable document.
 
-        Constructs an Importer object that converts a CoNLL document into an Annotable document.
-
-        :param field_list (list of str): list of keys identifying the fields in the CoNLL file.
+    Args:
+        field_list (list of str): list of keys identifying the fields in the CoNLL file.
             Default keys can be found in the constants.annotation module.
             Example: ["POS", "DEP", ...]
-        :return: new Formatter instance.
-        """
-
-        self.sent_tokenizer = conll_sentence_tokenize
-        self.word_tokenizer = conll_word_tokenize
+    """
+    def __init__(self, field_list):
+        super(CoNLLImporter, self).__init__(conll_sentence_tokenize, conll_word_tokenize)
         self.field_list = field_list
 
     def import_document(self, document):
@@ -80,11 +76,12 @@ class CoNLLImporter(Importer):
                     last_term_id = id_raw_range
 
                 else:
-                    raise ValueError("FUUUU")
+                    raise ValueError("Conversion error")
 
             if(len(sentence.tokens) == 0):
                 continue
 
+            sentence._surface = " ".join([tok.surface for tok in sentence.tokens])
             doc.sentences.append(sentence)
 
         return doc

@@ -24,6 +24,11 @@ class Sentence(Sequence):
 
     @property
     def surface(self) -> str:
+        """Surface form of the sentence
+
+        Default requires pre-processed form to be stored in the _surface property, but the implementation
+        is dependent on language and tokenization method (e.g., white space, BPE, etc.)
+        """
         if (self._surface is None):
             raise NotImplementedError
 

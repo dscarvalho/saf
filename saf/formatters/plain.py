@@ -5,8 +5,13 @@ import regex as re
 RGX_PUNCT = r" ([^\P{P}-])"
 
 class PlainFormatter(object):
+    """Provides a facility for exporting documents to plain text format."""
     @classmethod
     def dumps(cls, document):
+        """Produces a plain text string for the input document, one sentence per line.
+        Args:
+            document (Document): The document to be exported.
+        """
         if(len(document.sentences) == 0):
             return "";
 
