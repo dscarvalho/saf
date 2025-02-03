@@ -1,9 +1,17 @@
 __author__ = 'danilo.carvalho@manchester.ac.uk'
 
-from typing import List, Dict, Iterable, Union
+from typing import List, Dict, Iterable, Union, Hashable
 from collections import Counter
 
 from .annotable import Annotable
+
+
+def format_annotation(label: Hashable, lowercase: bool) -> Hashable:
+    if (lowercase and isinstance(label, str)):
+        label = label.lower()
+
+    return label
+
 
 
 class Vocabulary:
@@ -42,10 +50,13 @@ class Vocabulary:
             if (source == "_token"):
                 self.freqs: Counter[str] = Counter([tok.surface.lower() if lowercase else tok.surface for tok in tokens])
             else:
-                self.freqs: Counter[str] = Counter([label.lower() if lowercase else label for label in labels])
+                self.freqs: Counter[Hashable] = Counter([
+                    format_annotation(label, lowercase) for label in labels
+                    if (label is not None)
+                ])
 
-            self._vocab: Dict[str, int] = {symbol: i for i, symbol in enumerate(sorted(self.freqs.keys()))}
-            self._rev_vocab: Dict[int, str] = {i: symbol for symbol, i in self._vocab.items()}
+            self._vocab: Dict[Hashable, int] = {symbol: i for i, symbol in enumerate(sorted(self.freqs.keys()))}
+            self._rev_vocab: Dict[int, Hashable] = {i: symbol for symbol, i in self._vocab.items()}
 
             if (maxlen):
                 excl = set(self.freqs.keys()) - set([symbol for symbol, freq in self.freqs.most_common(maxlen)])

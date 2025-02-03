@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='saf-nlp',
-    version='0.5.1',
+    version='0.5.2',
     packages=['saf', 'saf.test', 'saf.constants', 'saf.importers', 'saf.importers.tokenizers', 'saf.annotators',
               'saf.data_model', 'saf.formatters'],
     url='',
