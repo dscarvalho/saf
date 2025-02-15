@@ -4,3 +4,4 @@ from .conll import CoNLLImporter
 from .webanno import WebAnnoImporter
 from .morphodb import MorphoDBImporter
 from .plain import PlainTextImporter
+from .list import ListImporter

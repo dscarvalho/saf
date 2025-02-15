@@ -24,6 +24,8 @@ class Importer(ABC):
         self.sent_tokenizer = sentence_tokenizer
         self.word_tokenizer = word_tokenizer
 
+    def __call__(self, *args, **kwargs) -> Document:
+        return self.import_document(*args, **kwargs)
 
     @abstractmethod
     def import_document(self, document) -> Document:
