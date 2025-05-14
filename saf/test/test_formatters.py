@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Danilo S. Carvalho <danilo@jaist.ac.jp>, Vu Duc Tran <vu.tran@jaist.ac.jp>'
 
-from saf.data_model.document import Document
-from saf.data_model.sentence import Sentence
-from saf.data_model.token import Token
-from saf.constants import annotation
-from saf.importers.conll import CoNLLImporter
 from saf.formatters.conll import CoNLLFormatter
 from saf.formatters.plain import PlainFormatter
 
 
-from saf.importers.plain import PlainImporter
+from saf.importers.plain import PlainTextImporter
 from saf.importers.conll import CoNLLImporter
 from saf.constants import annotation
 from nltk.tokenize import sent_tokenize, word_tokenize
@@ -58,6 +53,7 @@ conll_doc = """
 9   .   _   PUNCT   .   _   2   punct   _   _
 """
 
+
 class TestCoNLLFormatter(unittest.TestCase):
     def test_conll_format(self):
 
@@ -76,7 +72,7 @@ class TestCoNLLFormatter(unittest.TestCase):
         print(conll_formatted_doc)
 
     def test_conll_format_w_plain_input(self):
-        plain_importer = PlainImporter(sent_tokenize, word_tokenize)
+        plain_importer = PlainTextImporter(sent_tokenize, word_tokenize)
         doc = plain_importer.import_document(plain_doc)
 
         self.assertEqual(len(doc.sentences), 10)

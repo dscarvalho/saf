@@ -15,7 +15,7 @@ def load_requirements() -> list:
 
 setup(
     name='saf-nlp',
-    version='0.5.5',
+    version='0.6.0',
     packages=['saf', 'saf.test', 'saf.constants', 'saf.importers', 'saf.importers.tokenizers', 'saf.annotators',
               'saf.data_model', 'saf.formatters'],
     url='',

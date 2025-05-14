@@ -3,7 +3,7 @@ __author__ = 'Danilo S. Carvalho <danilo@jaist.ac.jp>, Vu Duc Tran <vu.tran@jais
 
 import unittest
 
-from saf.importers.plain import PlainImporter
+from saf.importers.plain import PlainTextImporter
 from saf.importers.conll import CoNLLImporter
 from saf.constants import annotation
 from nltk.tokenize import sent_tokenize, word_tokenize
@@ -51,7 +51,7 @@ conll_doc = """
 
 class TestPlainImporter(unittest.TestCase):
     def test_plain(self):
-        plain_importer = PlainImporter(sent_tokenize, word_tokenize)
+        plain_importer = PlainTextImporter(sent_tokenize, word_tokenize)
         doc = plain_importer.import_document(plain_doc)
 
         self.assertEqual(len(doc.sentences), 10)

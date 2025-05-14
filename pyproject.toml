@@ -1,6 +1,6 @@
 [project]
 name = "saf-nlp"
-version = "0.5.5"
+version = "0.6.0"
 authors = [
   { name="Danilo S. Carvalho", email="danilo.carvalho@manchester.ac.uk" },
   { name="Vu Duc Tran", email="vu.tran@jaist.ac.jp" }
