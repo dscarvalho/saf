@@ -39,9 +39,10 @@ class Sequence(Annotable):
         if (self.annotations):
             obj["annotations"] = self.annotations
 
-        obj["tokens"] = {
-            "surface": [tok.surface for tok in self.tokens],
-            "annotations": [tok.annotations for tok in self.tokens]
-        }
+        if (self.tokens):
+            obj["tokens"] = {
+                "surface": [tok.surface for tok in self.tokens],
+                "annotations": [tok.annotations for tok in self.tokens]
+            }
 
         return obj
